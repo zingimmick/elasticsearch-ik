@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Sync Tag From medcl/elasticsearch-analysis-ik
+name: Sync tags from ik repository
 
 # Controls when the action will run. 
 on:
@@ -27,8 +27,6 @@ jobs:
         run: |
           TAGS=$(git ls-remote --tags --sort="v:refname" git://github.com/medcl/elasticsearch-analysis-ik.git | sed 's/.*\///' | sed -e 's/^v//' | xargs)
           for TAG in $TAGS; do
-            git ls-remote --tags --exit-code git://github.com/zingimmick/elasticsearch-ik.git v"$TAG"
-            if [[ $? == 2 ]]; then
-              echo v"$TAG"
-            fi
+            git ls-remote --tags --exit-code git://github.com/zingimmick/elasticsearch-ik.git v"$TAG" || git tag v"$TAG"
+            git push --tags
           done
