@@ -33,7 +33,7 @@ jobs:
           [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
 
           # Use Docker `latest` tag convention
-          [ "$VERSION" == "master" ] && VERSION=latest
+          [ "$VERSION" == "master" ] && VERSION=$(git ls-remote --tags --sort="v:refname" git://github.com/medcl/elasticsearch-analysis-ik.git | tail -n1 | sed 's/.*\///' | sed -e 's/^v//')
 
           echo "::set-output name=elasticsearch_version::$VERSION"
 
