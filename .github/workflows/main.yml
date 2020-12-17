@@ -25,8 +25,7 @@ jobs:
         run: |
           TAGS=$(git ls-remote --tags --sort="v:refname" git://github.com/medcl/elasticsearch-analysis-ik.git | sed 's/.*\///' | sed -e 's/^v//' | xargs)
           for TAG in $TAGS; do
-            git ls-remote --tags --exit-code git://github.com/zingimmick/elasticsearch-ik.git v"$TAG"
-            if [[ $? != 0 ]]; then
+            if [[ $(git ls-remote --tags --exit-code git://github.com/zingimmick/elasticsearch-ik.git v"$TAG") != 0 ]]; then
               git tag v"$TAG"
               git push --tags
             fi
