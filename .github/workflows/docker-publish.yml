@@ -47,4 +47,4 @@ jobs:
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
           build-args: |
-            ELASTICSEARCH_VERSION=${{ steps.docker_meta.outputs.tags }}
+            ELASTICSEARCH_VERSION=7.7.1
