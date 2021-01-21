@@ -27,8 +27,12 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
-          TAGS=$(git ls-remote --tags --sort="v:refname" git://github.com/medcl/elasticsearch-analysis-ik.git | sed 's/.*\///' | sed -e 's/^v//' | xargs)
+          TAGS=$(curl -s -S 'https://registry.hub.docker.com/v2/repositories/library/elasticsearch/tags/' | sed -e 's/,/,\n/g' -e 's/\[/\[\n/g' | grep '"name"' | awk -F\" '{print $4;}' | xargs)
           for TAG in $TAGS; do
-            git ls-remote --tags --exit-code git://github.com/zingimmick/elasticsearch-ik.git v"$TAG" || git tag v"$TAG"
+            if ! git ls-remote --tags --exit-code git://github.com/zingimmick/elasticsearch-ik.git v"$TAG"; then
+              if git ls-remote --tags --exit-code git://github.com/medcl/elasticsearch-analysis-ik.git v"$TAG"; then
+                git tag v"$TAG"
+              fi
+            fi
           done
           git push --tags
