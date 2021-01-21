@@ -33,7 +33,7 @@ jobs:
           [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
 
           # Use Docker `latest` tag convention
-          [ "$VERSION" == "master" ] && VERSION=$(curl -s -S 'https://registry.hub.docker.com/v2/repositories/library/elasticsearch/tags/' | sed -e 's/,/,\n/g' -e 's/\[/\[\n/g' | grep '"name"' | awk -F\" '{print $4;}' | tail -r | tail -n1)
+          [ "$VERSION" == "fix-2" ] && VERSION=$(curl -s -S 'https://registry.hub.docker.com/v2/repositories/library/elasticsearch/tags/' | sed -e 's/,/,\n/g' -e 's/\[/\[\n/g' | grep '"name"' | awk -F\" '{print $4;}' | tac | tail -n1)
 
           echo "::set-output name=elasticsearch_version::$VERSION"
 
