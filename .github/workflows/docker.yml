@@ -36,7 +36,7 @@ jobs:
 
           # Check plugin version
           PLUGIN_VERSION=$(git ls-remote --tags --sort="v:refname" git://github.com/medcl/elasticsearch-analysis-ik.git | tail -n1 | sed 's/.*\///' | sed -e 's/^v//')
-          [ "$VERSION" != "$PLUGIN_VERSION" ] && VERSION=$PLUGIN_VERSION && echo "::warning::Elasticsearch $VERSION is now available and Plugin [analysis-ik] was only built for Elasticsearch $PLUGIN_VERSION"
+          [ "$VERSION" != "$PLUGIN_VERSION" ] && echo "::warning::Elasticsearch $VERSION is now available and Plugin [analysis-ik] was only built for Elasticsearch $PLUGIN_VERSION" && VERSION=$PLUGIN_VERSION
 
           echo "::set-output name=elasticsearch_version::$VERSION"
 
