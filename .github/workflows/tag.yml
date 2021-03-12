@@ -2,7 +2,7 @@
 
 name: Sync tags from ik repository
 
-# Controls when the action will run. 
+# Controls when the action will run.
 on:
   schedule:
     - cron: '0 10 * * *' # everyday at 10am
@@ -27,7 +27,7 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
-          TAGS=$(curl -s -S 'https://registry.hub.docker.com/v2/repositories/library/elasticsearch/tags/' | sed -e 's/,/,\n/g' -e 's/\[/\[\n/g' | grep '"name"' | awk -F\" '{print $4;}' | xargs)
+          TAGS=$(curl -s -S 'https://registry.hub.docker.com/v2/repositories/elastic/elasticsearch/tags/' | sed -e 's/,/,\n/g' -e 's/\[/\[\n/g' | grep '"name"' | awk -F\" '{print $4;}' | xargs)
           for TAG in $TAGS; do
             if ! git ls-remote --tags --exit-code git://github.com/zingimmick/elasticsearch-ik.git v"$TAG"; then
               if git ls-remote --tags --exit-code git://github.com/medcl/elasticsearch-analysis-ik.git v"$TAG"; then
