@@ -18,7 +18,7 @@ jobs:
 
       - name: Docker meta
         id: docker_meta
-        uses: crazy-max/ghaction-docker-meta@v2.2.1
+        uses: crazy-max/ghaction-docker-meta@v2.3.0
         with:
           images: zingimmick/elasticsearch-ik # list of Docker images to use as base name for tags
           tag-sha: true # add git short SHA as Docker tag
