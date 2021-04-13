@@ -6,7 +6,7 @@ Based on elasticsearch image and installed IK Analysis
 
 See [download or compile -> use elasticsearch-plugin to install](https://github.com/medcl/elasticsearch-analysis-ik#install)
 
-### Current Version
+## Current Version
 
 | - | Homepage | Version |
 |---|---|---|
